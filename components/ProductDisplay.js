@@ -6,7 +6,7 @@ app.component('product-display', {
         }
     },
     template:
-
+    /*html*/
         `<div class="product-display">
     <div class="product-container">
       <div class="product-image">
@@ -38,19 +38,10 @@ app.component('product-display', {
           v-on:click="addToCart">
           Add to Cart
         </button>
-
- 
-        <button 
-        class="button" 
-        :class="{ disabledButton: !inStock }" 
-        :disabled="!inStock" 
-        @click="removeFromCart">
-        Remove Item
-      </button>
-      
-
       </div>
     </div>
+    <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+    <review-form @review-submitted="addReview"></review-form>
   </div>`,
     data() {
         return {
@@ -61,20 +52,19 @@ app.component('product-display', {
             variants: [
                 { id: 2234, color: 'blue', image: './assets/images/camisetabarça.jpg', quantity: 50 },
                 { id: 2235, color: 'pink', image: './assets/images/barçarosa.jpg', quantity: 0 },
-            ]
+            ],
+            reviews: []
         }
     },
     methods: {
         addToCart() {
             this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
         },
-
-        removeFromCart() {
-            this.$emit('remove-from-cart', this.variants[this.selectedVariant].id)
-        },
-
         updateVariant(index) {
             this.selectedVariant = index
+        },
+        addReview(review) {
+            this.reviews.push(review)
         }
     },
     computed: {
