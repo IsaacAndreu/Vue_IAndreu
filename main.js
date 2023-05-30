@@ -1,7 +1,7 @@
 const app = Vue.createApp({
     data() {
         return {
-            product: 'Socks',
+            product: 'Camiseta del F.C Barcelona',
             image: './assets/images/camisetabarça.jpg',
             inStock: true,
             details: ['50% cotton', '30% wool', '20% polyester'],
