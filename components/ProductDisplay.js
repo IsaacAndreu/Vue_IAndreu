@@ -7,60 +7,75 @@ app.component('product-display', {
     },
     template:
     /*html*/
-        `<div class="product-display">
+        `
+   <div class="product-display">
+        
     <div class="product-container">
       <div class="product-image">
-        <img v-bind:src="image">
+        <img :src="image" />
       </div>
+
       <div class="product-info">
-        <h1>{{ title }}</h1>
-
-        <p v-if="inStock">In Stock</p>
-        <p v-else>Out of Stock</p>
-
+        <h1>{{ productName }}</h1>
+        <p v-if="inStock">Disponible</p>
+        <p v-else>No Disponible</p>
         <p>Shipping: {{ shipping }}</p>
+
         <ul>
           <li v-for="detail in details">{{ detail }}</li>
         </ul>
 
-        <div 
+        <div class="color-circle"
           v-for="(variant, index) in variants" 
-          :key="variant.id" 
-          @mouseover="updateVariant(index)" 
-          class="color-circle" 
-          :style="{ backgroundColor: variant.color }">
-        </div>
-        
-        <button 
-          class="button" 
-          :class="{ disabledButton: !inStock }" 
-          :disabled="!inStock" 
-          v-on:click="addToCart">
-          Add to Cart
+          :key="variant.id"
+          :style="{ backgroundColor: variant.color }"
+          @mouseover="updateProduct(index)"
+          >
+        </div> 
+
+        <button class="button" v-on:click="addToCart" 
+          :disabled="!inStock"
+          :class="{ disabledButton: !inStock }"
+          >
+        Add to cart
         </button>
       </div>
     </div>
-    <review-list v-if="reviews.length" :reviews="reviews"></review-list>
-    <review-form @review-submitted="addReview"></review-form>
-  </div>`,
+
+    <review-list :reviews="reviews"></review-list>
+    <review-form @review-submitted="addReview" ></review-form>
+  </div>
+   `,
     data() {
         return {
             product: 'Camiseta del F.C Barcelona',
             brand: 'Nike',
             selectedVariant: 0,
-            details: ['50% cotton', '30% wool', '20% polyester'],
+            details: ['80% cotton', '20% polyester', 'Gender-neutral'],
             variants: [
-                { id: 2234, color: 'blue', image: './assets/images/camisetabarça.jpg', quantity: 50 },
-                { id: 2235, color: 'pink', image: './assets/images/barçarosa.jpg', quantity: 0 },
+                {
+                    id: 2234,
+                    color: 'blue',
+                    image: './assets/images/camisetabarça.jpg',
+                    quantity: 10
+                },
+                {
+                    id: 2235,
+                    color: 'pink',
+                    image: './assets/images/barçarosa.jpg',
+                    quantity: 0
+                }
             ],
-            reviews: []
+            reviews: [],
+            tabs: ['review-form', 'review-list'],
+            activeTab: 'review-form'
         }
     },
     methods: {
         addToCart() {
             this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
         },
-        updateVariant(index) {
+        updateProduct(index) {
             this.selectedVariant = index
         },
         addReview(review) {
@@ -68,7 +83,7 @@ app.component('product-display', {
         }
     },
     computed: {
-        title() {
+        productName() {
             return this.brand + ' ' + this.product
         },
         image() {
