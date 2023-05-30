@@ -17,7 +17,10 @@
       </div>
       <div class="product-info">
         <h1>{{ product }}</h1>
-        <a :href="url">Fet per Isaac Andreu</a>
+        <p v-if="inventory > 10">Disponible</p>
+        <p v-else-if="inventory <= 10 && inventory > 0">Apunt d'esgotarse</p>
+        <p v-else>Esgotat!!</p>
+        <p v-if="onSale">Oferta!</p>
       </div>
     </div>
   </div>

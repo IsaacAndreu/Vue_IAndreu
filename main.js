@@ -3,7 +3,8 @@ const app = Vue.createApp({
         return {
             product: 'Camiseta del Futbol Club Barcelona',
             image: './assets/images/camisetabarça.jpg',
-            url: 'https://fcbarcelona.es'
+            inventory: 100,
+            onSale: true
         }
     }
 })
