@@ -1,6 +1,16 @@
 {
-  "name": "IsaacAndreu/intro-to-vue3",
-  "require": {
-    "vendor/package": "1.0.0"
-  }
+    "name": "alumne/intro-to-vue-3-master",
+    "description": "bla bla",
+    "autoload": {
+        "psr-4": {
+            "Alumne\\IntroToVue3Master\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "IsaacAndreu",
+            "email": "isaacandreu@iesebre.com"
+        }
+    ],
+    "require": {}
 }
